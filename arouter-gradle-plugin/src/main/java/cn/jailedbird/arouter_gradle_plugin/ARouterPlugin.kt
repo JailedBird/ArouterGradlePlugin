@@ -12,7 +12,7 @@ class ARouterPlugin : Plugin<Project> {
     override fun apply(project: Project) {
         // Only app module will use this plugin
         if (project.plugins.hasPlugin(AppPlugin::class.java)) {
-            println("Init ArouterPlugin")
+            println("Init ArouterGradlePlugin")
             val androidComponents =
                 project.extensions.getByType(AndroidComponentsExtension::class.java)
 
@@ -22,7 +22,7 @@ class ARouterPlugin : Plugin<Project> {
                         "${variant.name}ScanAllArouterClassTask",
                         GetAllClassesTask::class.java
                     )
-                // Offical Documents: https://github.com/android/gradle-recipes
+                // Official Documents: https://github.com/android/gradle-recipes
                 variant.artifacts.forScope(ScopedArtifacts.Scope.ALL)
                     .use(taskProvider)
                     .toTransform(

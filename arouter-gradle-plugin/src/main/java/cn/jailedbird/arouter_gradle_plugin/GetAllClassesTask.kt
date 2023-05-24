@@ -44,7 +44,7 @@ abstract class GetAllClassesTask : DefaultTask() {
         )
 
         JarOutputStream(output.asFile.get().outputStream()).use { jarOutput ->
-            // Scan directoy (Copy and Collection)
+            // Scan directory (Copy and Collection)
             allDirectories.get().forEach { directory ->
                 val directoryPath =
                     if (directory.asFile.absolutePath.endsWith(File.separatorChar)) {

@@ -5,8 +5,8 @@ plugins {
 
 gradlePlugin {
     plugins {
-        register("TransformActionPlugin") {
-            id = "cn.jailedbird.artour.plugin"
+        register("ArouterGradlePlugin") {
+            id = "cn.jailedbird.arouter.plugin"
             implementationClass = "cn.jailedbird.arouter_gradle_plugin.ARouterPlugin"
         }
     }
@@ -28,5 +28,5 @@ dependencies {
     compileOnly("org.ow2.asm:asm-tree:9.4")
 }
 
-group = "com.zj.transform.action"
-version = "1.0.0"
+group = "cn.jailedbird.arouter.plugin"
+version = "1.0.0-beta01"
