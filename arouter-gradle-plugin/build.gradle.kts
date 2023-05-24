@@ -1,6 +1,7 @@
 plugins {
     id("java-gradle-plugin")
     id("org.jetbrains.kotlin.jvm") version "1.6.10"
+    id("maven-publish")
 }
 
 gradlePlugin {
@@ -31,4 +32,4 @@ dependencies {
 group = "cn.jailedbird.arouter.plugin"
 version = "1.0.0-beta01"
 
-apply(from = rootProject.file("gradle/maven-publish.gradle"))
+apply(from = "../gradle/maven-publish.gradle")
