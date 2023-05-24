@@ -30,3 +30,5 @@ dependencies {
 
 group = "cn.jailedbird.arouter.plugin"
 version = "1.0.0-beta01"
+
+apply(from = rootProject.file("gradle/maven-publish.gradle"))
