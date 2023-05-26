@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection")
+
 plugins {
     id("java-gradle-plugin")
     id("org.jetbrains.kotlin.jvm") version "1.6.10"
@@ -16,13 +18,13 @@ version = "1.0.0-beta01"
 
 pluginBundle {
     website = "https://github.com/JailedBird/ArouterGradlePlugin"
-    vcsUrl = "https://github.com/JailedBird/ArouterGradlePlugin"
+    vcsUrl = "https://github.com/JailedBird/ArouterGradlePlugin/blob/main/README_EN.md"
     tags = listOf("Arouter", "AGP7", "Arouter plugin", "AGP8", "Transform", "Auto Register")
 }
 gradlePlugin {
 
     plugins {
-        register("ArouterGradlePlugin") {
+        register("ARouterPlugin") {
             id = "io.github.JailedBird.ARouterPlugin"
             implementationClass = "cn.jailedbird.arouter_gradle_plugin.ARouterPlugin"
             displayName = "Arouter AGP7.4+ plugin"
