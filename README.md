@@ -1,25 +1,11 @@
 # ArouterGradlePlugin
 
+通过本插件，可以实现在AGP7.4+的[ARouter](https://github.com/alibaba/ARouter)框架自动注册；使用方法和`com.alibaba:arouter-register` 完全一致即可；
 
 
-## The reason for the review rejection
 
-> We received your plugin submission for "cn.jailedbird.arouter".
->
-> Your plugin was flagged for manual review because of the following issue(s):
->
-> Plugin ID prefix 'cn.jailedbird.arouter' does not match the GitHub username 'JailedBird'. Please prove ownership of the "jailedbird.cn" domain by adding a TXT record with value "gradle-verification=21V75CTLKFT7ATKNMM1GS9INUOHN1" to your DNS, or use a plugin ID, which ties to your GitHub user id, for example "io.github.JailedBird.plugin"
->
-> Your plugin lacks documentation, making its use by the community quite unlikely. If this is a private plugin, consider publishing it to a private repository.
-> Please refer to our documentation on plugin approval guidelines for more information: https://plugins.gradle.org/docs/publish-plugin#approval
+在App模块下导入此插件（https://plugins.gradle.org/u/zjc）， 可以从plugins.gradle.org找到本插件；
 
-Leak document
 
-> #### Plugin is lacking public documentation
->
-> **One typical situation when this problem arises is when the website or VCS URLs provided during plugin publication point to a broken or inaccessible destination. Another one is when the URLs point to, for example, a public GitHub repository, but there is no documentation there (empty README file) or none of it is in English.**
->
-> The problem with the lack of documentation is that it makes the adoption of the plugin by the community very unlikely.
->
-> The solution to this problem is to either make the documentation publicly available, or, if your plugin is indeed private, consider publishing it to a private repository.
 
+后续我会支持AGP8.0+，注意目前只是beta版本，可能存在性能问题，正确性经过初步的验证；注意最低AGP7.4， 7.4+尚未尝试（适配非常容易），7.4以下无法使用；
