@@ -17,8 +17,6 @@ class ScanSetting(_interfaceName: String) {
     val classList = mutableListOf<String>()
 
     companion object {
-        const val PLUGIN_NAME = "cn.jailedbird.arouter.plugin"
-
         /**
          * The register code is generated into this class
          */
