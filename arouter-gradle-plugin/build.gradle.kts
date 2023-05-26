@@ -11,7 +11,7 @@ repositories {
 }
 
 // The project version will be used as your plugin version when publishing.
-group = "cn.jailedbird.arouter"
+group = "io.github.JailedBird.plugin"
 version = "1.0.0-beta01"
 
 pluginBundle {
@@ -23,7 +23,7 @@ gradlePlugin {
 
     plugins {
         register("ArouterGradlePlugin") {
-            id = "cn.jailedbird.arouter.plugin"
+            id = "io.github.JailedBird.plugin.arouter"
             implementationClass = "cn.jailedbird.arouter_gradle_plugin.ARouterPlugin"
             displayName = "Arouter AGP7.4+ plugin"
             description = "Arouter AGP7.4+ plugin"
