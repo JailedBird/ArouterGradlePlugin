@@ -12,7 +12,7 @@ class SecondActivtiy : AppCompatActivity() {
     @Autowired
     var list = mutableListOf<String>()
 
-    @Autowired(required = true)
+    @Autowired(required = false)
     var arrayList = arrayListOf<String>()
 
     @Autowired
