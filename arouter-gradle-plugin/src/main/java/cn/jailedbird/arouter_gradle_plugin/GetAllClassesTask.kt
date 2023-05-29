@@ -42,7 +42,7 @@ abstract class GetAllClassesTask : DefaultTask() {
             ScanSetting("IInterceptorGroup"),
             ScanSetting("IProviderGroup"),
         )
-
+        val start = System.currentTimeMillis()
         JarOutputStream(output.asFile.get().outputStream()).use { jarOutput ->
             // Scan directory (Copy and Collection)
             allDirectories.get().forEach { directory ->
@@ -52,7 +52,7 @@ abstract class GetAllClassesTask : DefaultTask() {
                     } else {
                         directory.asFile.absolutePath + File.separatorChar
                     }
-                println("Directory is $directoryPath")
+                // println("Directory is $directoryPath")
                 directory.asFile.walk().forEach { file ->
                     if (file.isFile) {
                         val entryName = if (leftSlash) {
@@ -60,7 +60,7 @@ abstract class GetAllClassesTask : DefaultTask() {
                         } else {
                             file.path.substringAfter(directoryPath).replace(File.separatorChar, '/')
                         }
-                        println("\tDirectory entry name $entryName")
+                        // println("\tDirectory entry name $entryName")
                         if (entryName.isNotEmpty()) {
                             // Use stream to detect register, Take care, stream can only be read once,
                             // So, When Scan and Copy should open different stream;
@@ -81,12 +81,12 @@ abstract class GetAllClassesTask : DefaultTask() {
                 }
             }
 
-            debugCollection(targetList)
+            // debugCollection(targetList)
             var originInject: ByteArray? = null
             // Scan Jar, Copy & Scan & Code Inject
             val jars = allJars.get().map { it.asFile }
             for (sourceJar in jars) {
-                println("Jar file is $sourceJar")
+                // println("Jar file is $sourceJar")
                 val jar = JarFile(sourceJar)
                 val entries = jar.entries()
                 while (entries.hasMoreElements()) {
@@ -96,7 +96,7 @@ abstract class GetAllClassesTask : DefaultTask() {
                         if (entry.isDirectory || entry.name.isEmpty()) {
                             continue
                         }
-                        println("\tJar entry is ${entry.name}")
+                        // println("\tJar entry is ${entry.name}")
                         if (entry.name != ScanSetting.GENERATE_TO_CLASS_FILE_NAME) {
                             // Scan and choose
                             if (ScanUtils.shouldProcessClass(entry.name)) {
@@ -112,14 +112,14 @@ abstract class GetAllClassesTask : DefaultTask() {
                             jarOutput.closeEntry()
                         } else {
                             // Skip
-                            println("Find inject byte code, Skip ${entry.name}")
+                            // println("Find inject byte code, Skip ${entry.name}")
                             jar.getInputStream(entry).use { inputs ->
                                 originInject = inputs.readAllBytes()
-                                println("Find befor originInject is ${originInject?.size}")
+                                // println("Find befor originInject is ${originInject?.size}")
                             }
                         }
                     } catch (e: Exception) {
-                        println("Merge jar error entry:${entry.name}, error is $e ")
+                        // println("Merge jar error entry:${entry.name}, error is $e ")
                     }
                 }
                 jar.close()
@@ -128,21 +128,23 @@ abstract class GetAllClassesTask : DefaultTask() {
             // Skip
             println("Start inject byte code")
             if (originInject == null) { // Check
-                error("Can not find arouter inject point, Do you import arouter?")
+                error("Can not find ARouter inject point, Do you import arouter?")
             }
             val resultByteArray = InjectUtils.referHackWhenInit(
                 ByteArrayInputStream(originInject), targetList
             )
             jarOutput.putNextEntry(JarEntry(ScanSetting.GENERATE_TO_CLASS_FILE_NAME))
             IOUtils.copy(ByteArrayInputStream(resultByteArray), jarOutput)
+            println("Inject byte code successful")
             jarOutput.closeEntry()
         }
+        println("ARouter plugin inject time spend ${System.currentTimeMillis() - start} ms")
     }
 
     private fun debugCollection(list: List<ScanSetting>) {
-        println("Result:")
+        println("Collect result:")
         list.forEach { item ->
-            println("\n[${item.interfaceName}]")
+            println("[${item.interfaceName}]")
             item.classList.forEach {
                 println("\t $it")
             }
