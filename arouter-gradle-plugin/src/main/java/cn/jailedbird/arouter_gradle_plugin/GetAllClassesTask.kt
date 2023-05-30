@@ -20,7 +20,7 @@ import java.util.jar.JarOutputStream
 
 /**
  * TODO LIST
- * 1. closeEntry perhaps cause performance problem, Please use ZipEntry to optmize
+ * 1. closeEntry perhaps cause performance problem, Please use ZipEntry to optimize
  * 2. Please test build result, can run safely
  * */
 abstract class GetAllClassesTask : DefaultTask() {
@@ -115,7 +115,7 @@ abstract class GetAllClassesTask : DefaultTask() {
                             // println("Find inject byte code, Skip ${entry.name}")
                             jar.getInputStream(entry).use { inputs ->
                                 originInject = inputs.readAllBytes()
-                                // println("Find befor originInject is ${originInject?.size}")
+                                // println("Find before originInject is ${originInject?.size}")
                             }
                         }
                     } catch (e: Exception) {
@@ -125,10 +125,10 @@ abstract class GetAllClassesTask : DefaultTask() {
                 jar.close()
             }
             debugCollection(targetList)
-            // Skip
+            // Do inject
             println("Start inject byte code")
             if (originInject == null) { // Check
-                error("Can not find ARouter inject point, Do you import arouter?")
+                error("Can not find ARouter inject point, Do you import ARouter?")
             }
             val resultByteArray = InjectUtils.referHackWhenInit(
                 ByteArrayInputStream(originInject), targetList

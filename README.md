@@ -14,7 +14,7 @@ Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#s
 
 ```kotlin
 plugins {
-  id("io.github.JailedBird.ARouterPlugin") version "1.0.0-beta01"
+  id("io.github.JailedBird.ARouterPlugin") version "1.0.0-beta02"
 }
 ```
 
@@ -28,7 +28,7 @@ buildscript {
     }
   }
   dependencies {
-    classpath("io.github.JailedBird:arouter-gradle-plugin:1.0.0-beta01")
+    classpath("io.github.JailedBird:arouter-gradle-plugin:1.0.0-beta02")
   }
 }
 
