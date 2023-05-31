@@ -12,6 +12,7 @@ import java.io.InputStream
  * Scan all class in the package: com/alibaba/android/arouter/
  * find out all routers, interceptors and providers
  */
+@Suppress("SpellCheckingInspection")
 object ScanUtils {
 
     @Suppress("unused")

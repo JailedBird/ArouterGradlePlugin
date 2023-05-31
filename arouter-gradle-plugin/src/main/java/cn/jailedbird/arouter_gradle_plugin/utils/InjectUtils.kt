@@ -6,6 +6,7 @@ import java.io.InputStream
 /**
  * generate register code into LogisticsCenter.class
  */
+@Suppress("SpellCheckingInspection")
 object InjectUtils {
     // refer hack class when object init
     fun referHackWhenInit(inputStream: InputStream, targetList: List<ScanSetting>): ByteArray {

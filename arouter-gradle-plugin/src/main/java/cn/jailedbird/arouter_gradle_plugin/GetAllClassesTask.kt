@@ -14,6 +14,7 @@ import org.gradle.api.tasks.OutputFile
 import org.gradle.api.tasks.TaskAction
 import java.io.ByteArrayInputStream
 import java.io.File
+import java.io.InputStream
 import java.util.jar.JarEntry
 import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
@@ -70,12 +71,9 @@ abstract class GetAllClassesTask : DefaultTask() {
                                 }
                             }
                             // Copy
-                            val entry = JarEntry(entryName)
-                            jarOutput.putNextEntry(entry)
                             file.inputStream().use { input ->
-                                input.copyTo(jarOutput)
+                                jarOutput.saveEntry(entryName, input)
                             }
-                            jarOutput.closeEntry()
                         }
                     }
                 }
@@ -83,6 +81,7 @@ abstract class GetAllClassesTask : DefaultTask() {
 
             // debugCollection(targetList)
             var originInject: ByteArray? = null
+
             // Scan Jar, Copy & Scan & Code Inject
             val jars = allJars.get().map { it.asFile }
             for (sourceJar in jars) {
@@ -105,11 +104,9 @@ abstract class GetAllClassesTask : DefaultTask() {
                                 }
                             }
                             // Copy
-                            jarOutput.putNextEntry(JarEntry(entry.name))
-                            jar.getInputStream(entry).use { inputs ->
-                                IOUtils.copy(inputs, jarOutput)
+                            jar.getInputStream(entry).use { input ->
+                                jarOutput.saveEntry(entry.name, input)
                             }
-                            jarOutput.closeEntry()
                         } else {
                             // Skip
                             // println("Find inject byte code, Skip ${entry.name}")
@@ -119,7 +116,7 @@ abstract class GetAllClassesTask : DefaultTask() {
                             }
                         }
                     } catch (e: Exception) {
-                        // println("Merge jar error entry:${entry.name}, error is $e ")
+                        println("Merge jar error entry:${entry.name}, error is $e ")
                     }
                 }
                 jar.close()
@@ -133,12 +130,19 @@ abstract class GetAllClassesTask : DefaultTask() {
             val resultByteArray = InjectUtils.referHackWhenInit(
                 ByteArrayInputStream(originInject), targetList
             )
-            jarOutput.putNextEntry(JarEntry(ScanSetting.GENERATE_TO_CLASS_FILE_NAME))
-            IOUtils.copy(ByteArrayInputStream(resultByteArray), jarOutput)
+            jarOutput.saveEntry(
+                ScanSetting.GENERATE_TO_CLASS_FILE_NAME,
+                ByteArrayInputStream(resultByteArray)
+            )
             println("Inject byte code successful")
-            jarOutput.closeEntry()
         }
         println("ARouter plugin inject time spend ${System.currentTimeMillis() - start} ms")
+    }
+
+    private fun JarOutputStream.saveEntry(entryName: String, inputStream: InputStream) {
+        this.putNextEntry(JarEntry(entryName))
+        IOUtils.copy(inputStream, this)
+        this.closeEntry()
     }
 
     private fun debugCollection(list: List<ScanSetting>) {

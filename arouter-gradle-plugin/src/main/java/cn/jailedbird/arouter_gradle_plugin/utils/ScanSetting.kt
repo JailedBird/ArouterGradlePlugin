@@ -1,3 +1,5 @@
+@file:Suppress("SpellCheckingInspection")
+
 package cn.jailedbird.arouter_gradle_plugin.utils
 
 /**
