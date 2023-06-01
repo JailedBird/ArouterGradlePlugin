@@ -7,6 +7,7 @@ import org.objectweb.asm.Opcodes
 import java.io.File
 import java.io.FileInputStream
 import java.io.InputStream
+import java.util.jar.JarFile
 
 /**
  * Scan all class in the package: com/alibaba/android/arouter/
@@ -14,6 +15,23 @@ import java.io.InputStream
  */
 @Suppress("SpellCheckingInspection")
 object ScanUtils {
+
+    fun scanJar(jarFile: File, targetList: List<ScanSetting>) {
+        if (jarFile.exists()) {
+            val file = JarFile(jarFile)
+            val enumeration = file.entries()
+            while (enumeration.hasMoreElements()) {
+                val jarEntry = enumeration.nextElement()
+                if (jarEntry.name.startsWith(ScanSetting.ROUTER_CLASS_PACKAGE_NAME)) {
+                    val inputStream = file.getInputStream(jarEntry)
+                    scanClass(inputStream, targetList, false)
+                    inputStream.close()
+                }
+            }
+            file.close()
+        }
+    }
+
 
     @Suppress("unused")
     fun shouldProcessPreDexJar(path: String): Boolean {
@@ -30,9 +48,7 @@ object ScanUtils {
     }
 
     fun scanClass(
-        inputStream: InputStream,
-        targetList: List<ScanSetting>,
-        autoClose: Boolean = true
+        inputStream: InputStream, targetList: List<ScanSetting>, autoClose: Boolean = true
     ) {
         val cr = ClassReader(inputStream)
         val cw = ClassWriter(cr, 0)
@@ -44,11 +60,8 @@ object ScanUtils {
     }
 
     class ScanClassVisitor(
-        api: Int,
-        cv: ClassVisitor,
-        private val targetRegisterList: List<ScanSetting>
-    ) :
-        ClassVisitor(api, cv) {
+        api: Int, cv: ClassVisitor, private val targetRegisterList: List<ScanSetting>
+    ) : ClassVisitor(api, cv) {
         override fun visit(
             version: Int,
             access: Int,
