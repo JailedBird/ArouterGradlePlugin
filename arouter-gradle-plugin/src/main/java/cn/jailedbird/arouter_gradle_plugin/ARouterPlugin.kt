@@ -17,34 +17,34 @@ class ARouterPlugin : Plugin<Project> {
                 project.extensions.getByType(AndroidComponentsExtension::class.java)
 
             androidComponents.onVariants { variant ->
-                // val taskProvider =
-                //     project.tasks.register(
-                //         "${variant.name}ScanAllARouterClassTask",
-                //         GetAllClassesTask::class.java
-                //     )
-                // // Official Documents: https://github.com/android/gradle-recipes
-                // variant.artifacts.forScope(ScopedArtifacts.Scope.ALL)
-                //     .use(taskProvider)
-                //     .toTransform(
-                //         ScopedArtifact.CLASSES,
-                //         GetAllClassesTask::allJars,
-                //         GetAllClassesTask::allDirectories,
-                //         GetAllClassesTask::output
-                //     )
 
-                val taskProvider =
+                val taskProviderScanAllClassesTask =
                     project.tasks.register(
-                        "${variant.name}ScanClassesTask",
-                        ScanClassesTask::class.java
+                        "${variant.name}ScanAllClassesTask",
+                        ScanAllClassesTask::class.java
                     )
                 // Official Documents: https://github.com/android/gradle-recipes
                 variant.artifacts.forScope(ScopedArtifacts.Scope.ALL)
-                    .use(taskProvider)
+                    .use(taskProviderScanAllClassesTask)
+                    .toGet(
+                        ScopedArtifact.CLASSES,
+                        ScanAllClassesTask::allJars,
+                        ScanAllClassesTask::allDirectories,
+                    )
+
+                val taskProviderTransformAllClassesTask =
+                    project.tasks.register(
+                        "${variant.name}TransformAllClassesTask",
+                        TransformAllClassesTask::class.java
+                    )
+                // Official Documents: https://github.com/android/gradle-recipes
+                variant.artifacts.forScope(ScopedArtifacts.Scope.ALL)
+                    .use(taskProviderTransformAllClassesTask)
                     .toTransform(
                         ScopedArtifact.CLASSES,
-                        ScanClassesTask::allJars,
-                        ScanClassesTask::allDirectories,
-                        ScanClassesTask::output
+                        TransformAllClassesTask::allJars,
+                        TransformAllClassesTask::allDirectories,
+                        TransformAllClassesTask::output
                     )
 
 

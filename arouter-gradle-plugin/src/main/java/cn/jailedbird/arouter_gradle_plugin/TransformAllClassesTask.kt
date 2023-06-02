@@ -24,7 +24,7 @@ import java.util.jar.JarOutputStream
  * 1. closeEntry perhaps cause performance problem, Please use ZipEntry to optimize
  * 2. Please test build result, can run safely
  * */
-abstract class GetAllClassesTask : DefaultTask() {
+abstract class TransformAllClassesTask : DefaultTask() {
 
     @get:InputFiles
     abstract val allDirectories: ListProperty<Directory>

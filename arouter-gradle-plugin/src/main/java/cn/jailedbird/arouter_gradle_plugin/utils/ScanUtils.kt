@@ -23,9 +23,9 @@ object ScanUtils {
             while (enumeration.hasMoreElements()) {
                 val jarEntry = enumeration.nextElement()
                 if (jarEntry.name.startsWith(ScanSetting.ROUTER_CLASS_PACKAGE_NAME)) {
-                    val inputStream = file.getInputStream(jarEntry)
-                    scanClass(inputStream, targetList, false)
-                    inputStream.close()
+                    file.getInputStream(jarEntry).use { inputStream ->
+                        scanClass(inputStream, targetList, false)
+                    }
                 }
             }
             file.close()
@@ -34,6 +34,9 @@ object ScanUtils {
 
 
     @Suppress("unused")
+    /**
+     * Exclude scan jar, you can custmize yourself
+     * */
     fun shouldProcessPreDexJar(path: String): Boolean {
         return !path.contains("com.android.support") && !path.contains("/android/m2repository")
     }

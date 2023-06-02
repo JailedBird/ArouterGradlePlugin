@@ -19,12 +19,7 @@ import java.util.jar.JarEntry
 import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 
-/**
- * TODO LIST
- * 1. closeEntry perhaps cause performance problem, Please use ZipEntry to optimize
- * 2. Please test build result, can run safely
- * */
-abstract class ScanClassesTask : DefaultTask() {
+abstract class ScanAllClassesTask : DefaultTask() {
 
     @get:InputFiles
     abstract val allDirectories: ListProperty<Directory>
@@ -78,6 +73,11 @@ abstract class ScanClassesTask : DefaultTask() {
         // Scan jars
         val scanJars = allJars.get().map { it.asFile }
         for (jar in scanJars) {
+            // Scan jar(exclude white list); TODO check jar path rules
+            // if (ScanUtils.shouldProcessPreDexJar(jar.absolutePath)) {
+            //     ScanUtils.scanJar(jar, targetList)
+            // }
+            println(jar.absolutePath)
             ScanUtils.scanJar(jar, targetList)
         }
         // ARouter plugin scan time spend 11 ms
