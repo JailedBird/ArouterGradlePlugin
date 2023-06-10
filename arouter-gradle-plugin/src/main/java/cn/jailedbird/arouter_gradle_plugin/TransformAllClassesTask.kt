@@ -37,6 +37,7 @@ abstract class TransformAllClassesTask : DefaultTask() {
 
     @TaskAction
     fun taskAction() {
+        println("TransformAllClassesTask task execute!")
         val leftSlash = File.separator == "/"
         val targetList: List<ScanSetting> = listOf(
             ScanSetting("IRouteRoot"),

@@ -17,38 +17,34 @@ class ARouterPlugin : Plugin<Project> {
                 project.extensions.getByType(AndroidComponentsExtension::class.java)
 
             androidComponents.onVariants { variant ->
-
                 val taskProviderScanAllClassesTask =
                     project.tasks.register(
                         "${variant.name}ScanAllClassesTask",
                         ScanAllClassesTask::class.java
                     )
-                // Official Documents: https://github.com/android/gradle-recipes
-                variant.artifacts.forScope(ScopedArtifacts.Scope.ALL)
-                    .use(taskProviderScanAllClassesTask)
-                    .toGet(
-                        ScopedArtifact.CLASSES,
-                        ScanAllClassesTask::allJars,
-                        ScanAllClassesTask::allDirectories,
-                    )
 
-                val taskProviderTransformAllClassesTask =
+                val taskProviderAddClassesTask =
                     project.tasks.register(
-                        "${variant.name}TransformAllClassesTask",
-                        TransformAllClassesTask::class.java
-                    )
-                // Official Documents: https://github.com/android/gradle-recipes
-                variant.artifacts.forScope(ScopedArtifacts.Scope.ALL)
-                    .use(taskProviderTransformAllClassesTask)
-                    .toTransform(
-                        ScopedArtifact.CLASSES,
-                        TransformAllClassesTask::allJars,
-                        TransformAllClassesTask::allDirectories,
-                        TransformAllClassesTask::output
+                        "${variant.name}AddClassesTask",
+                        AddClassesTask::class.java
                     )
 
+                val scope = variant.artifacts.forScope(ScopedArtifacts.Scope.PROJECT)
+
+                // scope.use(taskProviderScanAllClassesTask)
+                //     .toGet(
+                //         ScopedArtifact.CLASSES,
+                //         ScanAllClassesTask::allJars,
+                //         ScanAllClassesTask::allDirectories,
+                //     )
+                scope.use(taskProviderAddClassesTask)
+                    .toAppend(
+                        ScopedArtifact.CLASSES,
+                        AddClassesTask::output,
+                    )
 
             }
+
         }
 
     }
