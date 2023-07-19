@@ -36,10 +36,9 @@ apply(plugin = "io.github.JailedBird.ARouterPlugin")
 
 ## 注意事项
 
-后续我会支持AGP8.0+，注意目前只是beta版本，可能存在性能问题，正确性经过初步的验证；
+注意本插件为AGP7.4版本， 7.4+尚未尝试（应该是可以执行的、后续会验证并推出专属版本），7.4以下无法使用(使用的API为7.4+限制)；
 
-注意本插件为AGP7.4版本， 7.4+尚未尝试（应该是可以执行的、后续会验证并推出专属版本），7.4以下无法使用(
-使用的API为7.4+限制)；
+代码经过测试支持同样支持AGP8+， 请切换[feat-agp8](https://github.com/JailedBird/ArouterGradlePlugin/tree/feat-agp8)分支；
 
 ## 参考文献
 
