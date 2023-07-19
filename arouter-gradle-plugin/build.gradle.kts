@@ -19,12 +19,10 @@ repositories {
 group = "io.github.JailedBird"
 version = "1.0.0-beta02"
 
-// pluginBundle {
-//     vcsUrl = "https://github.com/JailedBird/ArouterGradlePlugin"
-//     website = "https://github.com/JailedBird/ArouterGradlePlugin/blob/main/README_EN.md"
-//     tags = listOf("Arouter", "AGP7", "Arouter plugin", "AGP8", "Transform", "Auto Register")
-// }
+@Suppress("UnstableApiUsage")
 gradlePlugin {
+    vcsUrl.set("https://github.com/JailedBird/ArouterGradlePlugin")
+    website.set("https://github.com/JailedBird/ArouterGradlePlugin/blob/main/README_EN.md")
 
     plugins {
         register("ARouterPlugin") {
@@ -32,30 +30,10 @@ gradlePlugin {
             implementationClass = "cn.jailedbird.arouter_gradle_plugin.ARouterPlugin"
             displayName = "Arouter AGP7.4+ plugin"
             description = "Arouter AGP7.4+ plugin"
+            tags.set(listOf("Arouter", "AGP7", "Arouter plugin", "AGP8", "Transform", "Auto Register"))
         }
     }
 }
-
-/*gradlePlugin {
-    website.set("https://github.com/JailedBird/ArouterGradlePlugin")
-    vcsUrl.set("https://github.com/JailedBird/ArouterGradlePlugin/README_EN.md")
-    plugins {
-        create("greetingsPlugin") {
-            id = "io.github.johndoe.greeting"
-            implementationClass = "io.github.johndoe.gradle.GreetingPlugin"
-            displayName = "Gradle Greeting plugin"
-            description = "Gradle plugin to say hello!"
-            tags.set(listOf("search", "tags", "for", "your", "hello", "plugin"))
-        }
-        create("goodbyePlugin") {
-            id = "io.github.johndoe.goodbye"
-            implementationClass = "io.github.johndoe.gradle.GoodbyePlugin"
-            displayName = "Gradle Goodbye plugin"
-            description = "Gradle plugin to say goodbye!"
-            tags.set(listOf("search", "tags", "for", "your", "goodbye", "plugin"))
-        }
-    }
-}*/
 
 dependencies {
     implementation(kotlin("stdlib"))
