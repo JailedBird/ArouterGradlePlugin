@@ -57,7 +57,7 @@ gradlePlugin {
 dependencies {
     implementation(kotlin("stdlib"))
     gradleApi()
-    compileOnly("com.android.tools.build:gradle:7.4.0")
+    compileOnly("com.android.tools.build:gradle:8.0.2")
     compileOnly("commons-io:commons-io:2.8.0")
     compileOnly("commons-codec:commons-codec:1.15")
     compileOnly("org.ow2.asm:asm-commons:9.4")
