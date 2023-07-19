@@ -1,9 +1,11 @@
+@file:Suppress("UnstableApiUsage", "SpellCheckingInspection")
+
 pluginManagement {
     repositories {
         google()
         mavenCentral()
         gradlePluginPortal()
-        maven { url 'https://jitpack.io' }
+        maven(url = "https://jitpack.io")
     }
 }
 dependencyResolutionManagement {
@@ -11,9 +13,9 @@ dependencyResolutionManagement {
     repositories {
         google()
         mavenCentral()
-        maven { url 'https://jitpack.io' }
+        maven(url = "https://jitpack.io")
     }
 }
 rootProject.name = "ArouterGradlePlugin"
-include ':app'
+include(":app")
 includeBuild("arouter-gradle-plugin")
