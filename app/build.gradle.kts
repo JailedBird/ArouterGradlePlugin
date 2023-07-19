@@ -48,7 +48,7 @@ android {
 
 dependencies {
     implementation("com.alibaba:arouter-api:1.5.2")
-    ksp("com.github.JailedBird:ArouterKspCompiler:1.6.10-1.0.2")
+    ksp("com.github.JailedBird:ArouterKspCompiler:1.8.10-1.0.3")
     implementation("com.alibaba:fastjson:1.2.9")
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")

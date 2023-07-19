@@ -2,11 +2,14 @@
 
 plugins {
     id("java-gradle-plugin")
-    id("org.jetbrains.kotlin.jvm") version "1.6.10"
+    id("org.jetbrains.kotlin.jvm") version "1.8.10"
     id("com.gradle.plugin-publish") version "1.2.0"
 }
 
 repositories {
+    maven(url="https://maven.aliyun.com/repository/public/")
+    maven(url="https://maven.aliyun.com/repository/google/")
+    maven(url="https://maven.aliyun.com/repository/gradle-plugin/")
     google()
     mavenCentral()
     gradlePluginPortal()
@@ -16,11 +19,11 @@ repositories {
 group = "io.github.JailedBird"
 version = "1.0.0-beta02"
 
-pluginBundle {
-    vcsUrl = "https://github.com/JailedBird/ArouterGradlePlugin"
-    website = "https://github.com/JailedBird/ArouterGradlePlugin/blob/main/README_EN.md"
-    tags = listOf("Arouter", "AGP7", "Arouter plugin", "AGP8", "Transform", "Auto Register")
-}
+// pluginBundle {
+//     vcsUrl = "https://github.com/JailedBird/ArouterGradlePlugin"
+//     website = "https://github.com/JailedBird/ArouterGradlePlugin/blob/main/README_EN.md"
+//     tags = listOf("Arouter", "AGP7", "Arouter plugin", "AGP8", "Transform", "Auto Register")
+// }
 gradlePlugin {
 
     plugins {
