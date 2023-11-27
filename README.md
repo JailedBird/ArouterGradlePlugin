@@ -9,11 +9,13 @@
 
 插件发布地址[ArouterPlugin](https://plugins.gradle.org/plugin/io.github.JailedBird.ARouterPlugin)
 
+**Koltin**
+
 Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
 
 ```kotlin
 plugins {
-    id("io.github.JailedBird.ARouterPlugin") version "1.0.0-beta02"
+    id("io.github.JailedBird.ARouterPlugin") version "1.0.0"
 }
 ```
 
@@ -22,9 +24,7 @@ Using [legacy plugin application](https://docs.gradle.org/current/userguide/plug
 ```kotlin
 buildscript {
     repositories {
-        maven {
-            url = uri("https://plugins.gradle.org/m2/")
-        }
+        gradlePluginPortal()
     }
     dependencies {
         classpath("io.github.JailedBird:arouter-gradle-plugin:1.0.0-beta02")
@@ -34,11 +34,38 @@ buildscript {
 apply(plugin = "io.github.JailedBird.ARouterPlugin")
 ```
 
+**Grovvy**
+
+Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#sec:plugins_block):
+
+```groovy
+plugins {
+  id "io.github.JailedBird.ARouterPlugin" version "1.0.0"
+}
+```
+
+Using [legacy plugin application](https://docs.gradle.org/current/userguide/plugins.html#sec:old_plugin_application):
+
+```groovy
+buildscript {
+  repositories {
+    gradlePluginPortal()
+  }
+  dependencies {
+    classpath "io.github.JailedBird:arouter-gradle-plugin:1.0.0"
+  }
+}
+
+apply plugin: "io.github.JailedBird.ARouterPlugin"
+```
+
+
+
 ## 注意事项
 
-注意本插件为AGP7.4版本， 7.4+尚未尝试（应该是可以执行的、后续会验证并推出专属版本），7.4以下无法使用(使用的API为7.4+限制)；
+注意本插件使用AGP7.4，支持AGP7.4+和 AGP8的项目导入本插件
 
-代码经过测试支持同样支持AGP8+， 请切换[feat-agp8](https://github.com/JailedBird/ArouterGradlePlugin/tree/feat-agp8)分支；
+[feat-agp8](https://github.com/JailedBird/ArouterGradlePlugin/tree/feat-agp8)使用AGP8插件；
 
 ## 参考文献
 
