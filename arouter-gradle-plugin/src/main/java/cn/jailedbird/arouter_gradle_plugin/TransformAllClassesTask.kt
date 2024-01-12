@@ -4,6 +4,7 @@ import cn.jailedbird.arouter_gradle_plugin.utils.InjectUtils
 import cn.jailedbird.arouter_gradle_plugin.utils.ScanSetting
 import cn.jailedbird.arouter_gradle_plugin.utils.ScanUtils
 import org.apache.commons.io.IOUtils
+import org.apache.tools.ant.taskdefs.Zip
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFile
@@ -18,6 +19,7 @@ import java.io.InputStream
 import java.util.jar.JarEntry
 import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
+import java.util.zip.ZipException
 
 /**
  * TODO LIST
@@ -116,7 +118,12 @@ abstract class TransformAllClassesTask : DefaultTask() {
                             }
                         }
                     } catch (e: Exception) {
-                        println("Merge jar error entry:${entry.name}, error is $e ")
+                        // Format Optimize: exclude [java.util.zip.ZipException: duplicate entry: META-INF/MANIFEST.MF]
+                        if(e is ZipException && e.message?.contains("META-INF/MANIFEST.MF") == true){
+                            // Skip META-INF/MANIFEST.MF
+                        }else{
+                            println("[Warning] Merge [jar:entry] ${jar.name}:${entry.name}, error is $e ")
+                        }
                     }
                 }
                 jar.close()

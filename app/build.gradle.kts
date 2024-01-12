@@ -29,9 +29,27 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("arouter_gradle_plugin") {
+            keyAlias = "arouter_gradle_plugin"
+            keyPassword = "arouter_gradle_plugin"
+            storeFile = project.rootProject.projectDir.resolve("arouter_gradle_plugin.jks")
+            storePassword = "arouter_gradle_plugin"
+            enableV1Signing = true
+            enableV2Signing = true
+        }
+
+    }
+
     buildTypes {
+        debug{
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
+            )
+        }
         release {
-            isMinifyEnabled = false
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
@@ -48,7 +66,7 @@ android {
 
 dependencies {
     implementation("com.alibaba:arouter-api:1.5.2")
-    ksp("com.github.JailedBird:ArouterKspCompiler:1.6.10-1.0.2")
+    ksp("com.github.JailedBird:ArouterKspCompiler:1.8.20-1.0.7")
     implementation("com.alibaba:fastjson:1.2.9")
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.4.1")

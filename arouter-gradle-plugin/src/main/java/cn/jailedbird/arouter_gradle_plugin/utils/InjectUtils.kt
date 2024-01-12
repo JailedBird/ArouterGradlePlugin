@@ -15,7 +15,8 @@ object InjectUtils {
     // refer hack class when object init
     fun referHackWhenInit(inputStream: InputStream, targetList: List<ScanSetting>): ByteArray {
         val cr = ClassReader(inputStream)
-        val cw = ClassWriter(cr, ClassWriter.COMPUTE_FRAMES)
+        // val cw = ClassWriter(cr, ClassWriter.COMPUTE_FRAMES)
+        val cw = ClassWriter(cr, 0)
         val cv = InjectClassVisitor(Opcodes.ASM5, cw, targetList)
         cr.accept(cv, ClassReader.EXPAND_FRAMES)
         return cw.toByteArray()
