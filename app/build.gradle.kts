@@ -53,6 +53,7 @@ android {
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro"
             )
+            signingConfig = signingConfigs.getByName("arouter_gradle_plugin")
         }
     }
     compileOptions {
