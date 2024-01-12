@@ -1,6 +1,10 @@
 package cn.jailedbird.arouter_gradle_plugin.utils
 
-import org.objectweb.asm.*
+import org.objectweb.asm.ClassReader
+import org.objectweb.asm.ClassVisitor
+import org.objectweb.asm.ClassWriter
+import org.objectweb.asm.MethodVisitor
+import org.objectweb.asm.Opcodes
 import java.io.InputStream
 
 /**
@@ -11,7 +15,7 @@ object InjectUtils {
     // refer hack class when object init
     fun referHackWhenInit(inputStream: InputStream, targetList: List<ScanSetting>): ByteArray {
         val cr = ClassReader(inputStream)
-        val cw = ClassWriter(cr, 0)
+        val cw = ClassWriter(cr, ClassWriter.COMPUTE_FRAMES)
         val cv = InjectClassVisitor(Opcodes.ASM5, cw, targetList)
         cr.accept(cv, ClassReader.EXPAND_FRAMES)
         return cw.toByteArray()
