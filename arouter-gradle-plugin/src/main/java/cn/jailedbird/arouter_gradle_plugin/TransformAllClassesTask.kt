@@ -22,11 +22,6 @@ import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 import java.util.zip.ZipException
 
-/**
- * TODO LIST
- * 1. closeEntry perhaps cause performance problem, Please use ZipEntry to optimize
- * 2. Please test build result, can run safely
- * */
 abstract class TransformAllClassesTask : DefaultTask() {
 
     @get:InputFiles
