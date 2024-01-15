@@ -18,7 +18,7 @@ import java.io.InputStream
 import java.util.jar.JarEntry
 import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
-
+@Deprecated("This is a test file for ScanAllClassesWithTransformTask")
 abstract class ScanAllClassesWithTransformTask : DefaultTask() {
 
     @get:InputFiles

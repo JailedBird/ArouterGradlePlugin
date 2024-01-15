@@ -1,10 +1,11 @@
+@file:Suppress("SpellCheckingInspection")
+
 package cn.jailedbird.arouter_gradle_plugin
 
 import cn.jailedbird.arouter_gradle_plugin.utils.InjectUtils
 import cn.jailedbird.arouter_gradle_plugin.utils.ScanSetting
 import cn.jailedbird.arouter_gradle_plugin.utils.ScanUtils
 import org.apache.commons.io.IOUtils
-import org.apache.tools.ant.taskdefs.Zip
 import org.gradle.api.DefaultTask
 import org.gradle.api.file.Directory
 import org.gradle.api.file.RegularFile
@@ -21,11 +22,6 @@ import java.util.jar.JarFile
 import java.util.jar.JarOutputStream
 import java.util.zip.ZipException
 
-/**
- * TODO LIST
- * 1. closeEntry perhaps cause performance problem, Please use ZipEntry to optimize
- * 2. Please test build result, can run safely
- * */
 abstract class TransformAllClassesTask : DefaultTask() {
 
     @get:InputFiles
@@ -39,6 +35,8 @@ abstract class TransformAllClassesTask : DefaultTask() {
 
     @TaskAction
     fun taskAction() {
+        println("Welcome to use ArouterGradlePlugin for AGP8: https://github.com/JailedBird/ArouterGradlePlugin")
+        println("ArouterGradlePlugin task start:")
         val leftSlash = File.separator == "/"
         val targetList: List<ScanSetting> = listOf(
             ScanSetting("IRouteRoot"),

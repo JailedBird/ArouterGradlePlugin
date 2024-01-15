@@ -10,6 +10,7 @@ import org.gradle.api.tasks.InputFiles
 import org.gradle.api.tasks.TaskAction
 import java.io.File
 
+@Deprecated("This is a test file for ScanAllClassesTask")
 abstract class ScanAllClassesTask : DefaultTask() {
 
     companion object {
