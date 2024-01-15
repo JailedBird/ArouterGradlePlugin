@@ -17,7 +17,7 @@ Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#s
 
 ```kotlin
 plugins {
-    id("io.github.JailedBird.ARouterPlugin") version "1.0.0"
+    id("io.github.JailedBird.ARouterPlugin") version "1.0.1"
 }
 ```
 
@@ -29,7 +29,7 @@ buildscript {
         gradlePluginPortal()
     }
     dependencies {
-        classpath("io.github.JailedBird:arouter-gradle-plugin:1.0.0-beta02")
+        classpath("io.github.JailedBird:arouter-gradle-plugin:1.0.1")
     }
 }
 
@@ -42,7 +42,7 @@ Using the [plugins DSL](https://docs.gradle.org/current/userguide/plugins.html#s
 
 ```groovy
 plugins {
-  id "io.github.JailedBird.ARouterPlugin" version "1.0.0"
+  id "io.github.JailedBird.ARouterPlugin" version "1.0.1"
 }
 ```
 
@@ -54,7 +54,7 @@ buildscript {
     gradlePluginPortal()
   }
   dependencies {
-    classpath "io.github.JailedBird:arouter-gradle-plugin:1.0.0"
+    classpath "io.github.JailedBird:arouter-gradle-plugin:1.0.1"
   }
 }
 
@@ -63,11 +63,6 @@ apply plugin: "io.github.JailedBird.ARouterPlugin"
 
 
 
-## 注意事项
-
-注意本插件使用AGP7.4，支持AGP7.4+和 AGP8的项目导入本插件
-
-[feat-agp8](https://github.com/JailedBird/ArouterGradlePlugin/tree/feat-agp8)使用AGP8插件；
 
 ## 参考文献
 
