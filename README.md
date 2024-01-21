@@ -4,12 +4,13 @@
 
 ## 简介
 
-本插件可实现AGP7.4+下[ARouter](https://github.com/alibaba/ARouter)
-框架自动注册，使用方法和`com.alibaba:arouter-register` 完全一致；
+本插件可实现AGP7.4+和AGP8下[ARouter](https://github.com/alibaba/ARouter)框架自动化插桩，使用方法和`com.alibaba:arouter-register` 完全一致，无缝替换；
+
+
 
 ## 导入方法
 
-插件发布地址[ArouterPlugin](https://plugins.gradle.org/plugin/io.github.JailedBird.ARouterPlugin)
+插件发布在 [ArouterPlugin](https://plugins.gradle.org/plugin/io.github.JailedBird.ARouterPlugin) ，点开即可查阅最全面的插件导入方式；
 
 **Koltin**
 
@@ -63,6 +64,66 @@ apply plugin: "io.github.JailedBird.ARouterPlugin"
 
 
 
+## 插桩代码
+
+Gradle遍历核心获取核心类，然后在loadRouterMap函数中插桩
+
+```
+override fun visitInsn(opcode: Int) {
+            // generate code before return
+            if (opcode in Opcodes.IRETURN..Opcodes.RETURN) {
+                targetList?.forEach { scanSetting ->
+                    scanSetting.classList.forEach { name ->
+                        val className = name.replace("/", ".")
+                        mv.visitLdcInsn(className)// 类名
+                        // generate invoke register method into LogisticsCenter.loadRouterMap()
+                        mv.visitMethodInsn(
+                            Opcodes.INVOKESTATIC,
+                            ScanSetting.GENERATE_TO_CLASS_NAME,
+                            ScanSetting.REGISTER_METHOD_NAME,
+                            "(Ljava/lang/String;)V",
+                            false
+                        )
+                    }
+                }
+            }
+            super.visitInsn(opcode)
+        }
+```
+
+插桩后字节码如下：
+
+```
+.method public static loadRouterMap()V
+    .registers 1
+
+    .line 63
+    const/4 v0, 0x0
+
+    sput-boolean v0, Lcom/alibaba/android/arouter/core/LogisticsCenter;->registerByPlugin:Z
+
+    .line 68
+    const-string v0, "com.alibaba.android.arouter.routes.ARouter$$Root$$app"
+
+    invoke-static {v0}, Lcom/alibaba/android/arouter/core/LogisticsCenter;->register(Ljava/lang/String;)V
+
+    const-string v0, "com.alibaba.android.arouter.routes.ARouter$$Root$$arouterapi"
+
+    invoke-static {v0}, Lcom/alibaba/android/arouter/core/LogisticsCenter;->register(Ljava/lang/String;)V
+
+    const-string v0, "com.alibaba.android.arouter.routes.ARouter$$Providers$$app"
+
+    invoke-static {v0}, Lcom/alibaba/android/arouter/core/LogisticsCenter;->register(Ljava/lang/String;)V
+
+    const-string v0, "com.alibaba.android.arouter.routes.ARouter$$Providers$$arouterapi"
+
+    invoke-static {v0}, Lcom/alibaba/android/arouter/core/LogisticsCenter;->register(Ljava/lang/String;)V
+
+    return-void
+.end method
+```
+
+
 
 ## 参考文献
 
@@ -76,4 +137,4 @@ apply plugin: "io.github.JailedBird.ARouterPlugin"
 
 ## 最后
 
-后续我会写对应的文档和实现方式，欢迎star😘
+相关文档见[issue1](https://github.com/JailedBird/ArouterGradlePlugin/issues/1)，如果对您有帮助，请点亮star支持作者😘
