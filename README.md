@@ -66,29 +66,29 @@ apply plugin: "io.github.JailedBird.ARouterPlugin"
 
 ## 插桩代码
 
-Gradle遍历核心获取核心类，然后在loadRouterMap函数中插桩
+遍历注解处理器生成的路由信息，然后在loadRouterMap函数中插桩
 
 ```
 override fun visitInsn(opcode: Int) {
-            // generate code before return
-            if (opcode in Opcodes.IRETURN..Opcodes.RETURN) {
-                targetList?.forEach { scanSetting ->
-                    scanSetting.classList.forEach { name ->
-                        val className = name.replace("/", ".")
-                        mv.visitLdcInsn(className)// 类名
-                        // generate invoke register method into LogisticsCenter.loadRouterMap()
-                        mv.visitMethodInsn(
-                            Opcodes.INVOKESTATIC,
-                            ScanSetting.GENERATE_TO_CLASS_NAME,
-                            ScanSetting.REGISTER_METHOD_NAME,
-                            "(Ljava/lang/String;)V",
-                            false
-                        )
-                    }
-                }
+    // generate code before return
+    if (opcode in Opcodes.IRETURN..Opcodes.RETURN) {
+        targetList?.forEach { scanSetting ->
+            scanSetting.classList.forEach { name ->
+                val className = name.replace("/", ".")
+                mv.visitLdcInsn(className)// 类名
+                
+                mv.visitMethodInsn(
+                    Opcodes.INVOKESTATIC,
+                    ScanSetting.GENERATE_TO_CLASS_NAME,
+                    ScanSetting.REGISTER_METHOD_NAME,
+                    "(Ljava/lang/String;)V",
+                    false
+                )
             }
-            super.visitInsn(opcode)
         }
+    }
+    super.visitInsn(opcode)
+}
 ```
 
 插桩后字节码如下：
@@ -96,27 +96,22 @@ override fun visitInsn(opcode: Int) {
 ```
 .method public static loadRouterMap()V
     .registers 1
-
+    
     .line 63
     const/4 v0, 0x0
-
     sput-boolean v0, Lcom/alibaba/android/arouter/core/LogisticsCenter;->registerByPlugin:Z
 
     .line 68
     const-string v0, "com.alibaba.android.arouter.routes.ARouter$$Root$$app"
-
     invoke-static {v0}, Lcom/alibaba/android/arouter/core/LogisticsCenter;->register(Ljava/lang/String;)V
-
+    
     const-string v0, "com.alibaba.android.arouter.routes.ARouter$$Root$$arouterapi"
-
     invoke-static {v0}, Lcom/alibaba/android/arouter/core/LogisticsCenter;->register(Ljava/lang/String;)V
-
+    
     const-string v0, "com.alibaba.android.arouter.routes.ARouter$$Providers$$app"
-
     invoke-static {v0}, Lcom/alibaba/android/arouter/core/LogisticsCenter;->register(Ljava/lang/String;)V
-
+    
     const-string v0, "com.alibaba.android.arouter.routes.ARouter$$Providers$$arouterapi"
-
     invoke-static {v0}, Lcom/alibaba/android/arouter/core/LogisticsCenter;->register(Ljava/lang/String;)V
 
     return-void
