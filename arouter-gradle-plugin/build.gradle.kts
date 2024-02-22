@@ -31,6 +31,15 @@ gradlePlugin {
             description = "Arouter AGP7.4+ plugin"
         }
     }
+
+    plugins {
+        register("ARouterPluginV2") {
+            id = "io.github.JailedBird.ARouterPluginV2"
+            implementationClass = "cn.jailedbird.arouter_gradle_plugin.ARouterPluginV2"
+            displayName = "Arouter AGP7.4+ plugin"
+            description = "Arouter AGP7.4+ plugin"
+        }
+    }
 }
 
 /*gradlePlugin {

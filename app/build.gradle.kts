@@ -5,6 +5,7 @@ plugins {
     id("org.jetbrains.kotlin.android")
     id("com.google.devtools.ksp")
     id("io.github.JailedBird.ARouterPlugin")
+    id("io.github.JailedBird.ARouterPluginV2")
 }
 
 ksp {
