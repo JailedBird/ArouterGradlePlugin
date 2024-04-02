@@ -14,7 +14,7 @@ repositories {
 
 // The project version will be used as your plugin version when publishing.
 group = "io.github.JailedBird"
-version = "1.0.1"
+version = "1.0.2-beta01"
 
 pluginBundle {
     vcsUrl = "https://github.com/JailedBird/ArouterGradlePlugin"

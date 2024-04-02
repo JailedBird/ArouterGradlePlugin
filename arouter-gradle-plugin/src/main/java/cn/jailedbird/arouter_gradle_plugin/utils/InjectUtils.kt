@@ -15,9 +15,11 @@ object InjectUtils {
     // refer hack class when object init
     fun referHackWhenInit(inputStream: InputStream, targetList: List<ScanSetting>): ByteArray {
         val cr = ClassReader(inputStream)
-        // val cw = ClassWriter(cr, ClassWriter.COMPUTE_FRAMES)
-        val cw = ClassWriter(cr, 0)
-        val cv = InjectClassVisitor(Opcodes.ASM5, cw, targetList)
+        // val cw = ClassWriter(cr, 0)
+        // Fix: https://github.com/JailedBird/ArouterGradlePlugin/issues/4
+        // Resolution: https://github.com/didi/DroidAssist/issues/38#issuecomment-1080378515
+        val cw = ClassWriter(cr, ClassWriter.COMPUTE_FRAMES)
+        val cv = InjectClassVisitor(Opcodes.ASM7, cw, targetList)
         cr.accept(cv, ClassReader.EXPAND_FRAMES)
         return cw.toByteArray()
     }
@@ -49,7 +51,7 @@ object InjectUtils {
             var mv = super.visitMethod(access, name, desc, signature, exceptions)
             // generate code into this method
             if (name == ScanSetting.GENERATE_TO_METHOD_NAME) {
-                mv = RouteMethodVisitor(Opcodes.ASM5, mv, targetList)
+                mv = RouteMethodVisitor(Opcodes.ASM7, mv, targetList)
             }
             return mv
         }
