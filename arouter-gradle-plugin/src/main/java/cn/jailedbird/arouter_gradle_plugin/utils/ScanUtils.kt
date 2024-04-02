@@ -55,7 +55,7 @@ object ScanUtils {
     ) {
         val cr = ClassReader(inputStream)
         val cw = ClassWriter(cr, 0)
-        val cv = ScanClassVisitor(Opcodes.ASM5, cw, targetList)
+        val cv = ScanClassVisitor(Opcodes.ASM7, cw, targetList)
         cr.accept(cv, ClassReader.EXPAND_FRAMES)
         if (autoClose) {
             inputStream.close()

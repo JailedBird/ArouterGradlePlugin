@@ -11,6 +11,10 @@ ksp {
     arg("AROUTER_MODULE_NAME", project.name)
 }
 
+arouter_config {
+    disableTransformWhenDebugBuild = true
+}
+
 android.sourceSets.all {
     java.srcDir("build/generated/ksp/${name}/kotlin/")
 }
