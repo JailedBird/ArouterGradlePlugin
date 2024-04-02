@@ -28,4 +28,13 @@
 -keep interface * implements com.alibaba.android.arouter.facade.template.IProvider
 
 # If single-type injection is used, that is, no interface is defined to implement IProvider, the following rules need to be added to protect the implementation
-# -keep class * implements com.alibaba.android.arouter.facade.template.IProvider
+-keep class * implements com.alibaba.android.arouter.facade.template.IProvider
+
+
+# Please add these rules to your existing keep rules in order to suppress warnings.
+# This is generated automatically by the Android Gradle plugin.
+-dontwarn java.awt.Color
+-dontwarn java.awt.Font
+-dontwarn java.awt.Point
+-dontwarn java.awt.Rectangle
+-dontwarn javax.lang.model.element.Element

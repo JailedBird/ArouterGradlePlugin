@@ -18,4 +18,3 @@ dependencyResolutionManagement {
 }
 rootProject.name = "ArouterGradlePlugin"
 include(":app")
-includeBuild("arouter-gradle-plugin")
