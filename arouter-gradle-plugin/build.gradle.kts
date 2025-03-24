@@ -16,11 +16,12 @@ repositories {
 group = "io.github.JailedBird"
 version = "1.0.2"
 
-pluginBundle {
-    vcsUrl = "https://github.com/JailedBird/ArouterGradlePlugin"
-    website = "https://github.com/JailedBird/ArouterGradlePlugin/blob/main/README_EN.md"
-    tags = listOf("Arouter", "AGP7", "Arouter plugin", "AGP8", "Transform", "Auto Register")
-}
+//pluginBundle {
+//    vcsUrl = "https://github.com/JailedBird/ArouterGradlePlugin"
+//    website = "https://github.com/JailedBird/ArouterGradlePlugin/blob/main/README_EN.md"
+//    tags = listOf("Arouter", "AGP7", "Arouter plugin", "AGP8", "Transform", "Auto Register")
+//}
+
 gradlePlugin {
 
     plugins {

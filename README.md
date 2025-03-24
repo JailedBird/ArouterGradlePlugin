@@ -10,6 +10,15 @@
 
 ## 更新说明
 
+2025/03/24，更新
+
+- 说明：[issue 5](https://github.com/JailedBird/ArouterGradlePlugin/issues/5) 修复，解决多个Transform插件编译错误，并在demo工程中更新AGP8.1示例；
+- 根因：宿主工程中低版本AGP存在bug，导致多个issue5中的多插件输出目录相同，产生写入冲突；
+- 解决：宿主工程升级到AGP8.1+, 多个transform的产物生成目录会根据taskName自动区分，完成修复；
+- 特别说明：仅需更新宿主工程AGP，无需更新此插件；
+
+
+
 最新版本1.0.2, 修复和优化
 
 - debug阶段支持禁用插桩
