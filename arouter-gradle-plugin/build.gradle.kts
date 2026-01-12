@@ -7,6 +7,9 @@ plugins {
 }
 
 repositories {
+    maven(url = "https://maven.aliyun.com/repository/central")
+    maven(url = "https://maven.aliyun.com/repository/public")
+    maven(url = "https://maven.aliyun.com/repository/gradle-plugin")
     google()
     mavenCentral()
     gradlePluginPortal()
@@ -23,13 +26,15 @@ version = "1.0.3-java21"
 //}
 
 gradlePlugin {
-
+    website = "https://github.com/JailedBird/ArouterGradlePlugin/blob/main/README_EN.md"
+    vcsUrl = "https://github.com/JailedBird/ArouterGradlePlugin"
     plugins {
         register("ARouterPlugin") {
             id = "io.github.JailedBird.ARouterPlugin"
             implementationClass = "cn.jailedbird.arouter_gradle_plugin.ARouterPlugin"
             displayName = "Arouter AGP7.4+ plugin with Java 21 support"
             description = "Arouter AGP7.4+ plugin with Java 21 support (ASM 9.7)"
+            tags = listOf("Arouter", "AGP7", "Arouter plugin", "AGP8", "Transform", "Auto Register")
         }
     }
 }

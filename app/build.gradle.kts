@@ -12,7 +12,7 @@ ksp {
 }
 
 arouter_config {
-    disableTransformWhenDebugBuild = true
+    disableTransformWhenDebugBuild = false
 }
 
 android.sourceSets.all {
