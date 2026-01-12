@@ -10,6 +10,12 @@
 
 ## 更新说明
 
+2026/01/12，更新 支持Java21  [`1.0.3-java21`]
+
+- 说明：感谢 [jjjjjjava](https://github.com/jjjjjjava)  提交对 Java21的PR [https://github.com/JailedBird/ArouterGradlePlugin/pull/16](https://github.com/JailedBird/ArouterGradlePlugin/pull/16) 修复，升级对应ASM版本 & Java支持版本，有需求的朋友可以先试试 1.0.3-java21 版本；
+
+  
+
 2025/03/24，更新
 
 - 说明：[issue 5](https://github.com/JailedBird/ArouterGradlePlugin/issues/5) 修复，解决多个Transform插件编译错误，并在demo工程中更新AGP8.1示例；
